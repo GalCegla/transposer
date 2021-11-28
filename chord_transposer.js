@@ -33,51 +33,59 @@ const chordRegEx = new RegExp("[CDEFGAB][#b]?m?7?");
 
 function transposer(tones) {
   const steps = tones + tones;
-  const flat = "b";
-  const sharp = "#";
 
   for (const span of spans) {
-    let chord = span.textContent;
-    let additions;
-    let chordIndex;
-    let newChord;
+    const chord = span.textContent;
+
     if (chord.match(chordRegEx)) {
-      if (chord[1] === flat || chord[1] === sharp) {
-        additions = chord.slice(2);
-        chord = chord.slice(0, 2);
-      } else {
-        additions = chord.slice(1);
-        chord = chord.slice(0, 1);
-      }
-
-      if (chords.includes(chord)) {
-        chordIndex = chords.indexOf(chord);
-      } else if (chords2.includes(chord)) {
-        chordIndex = chords2.indexOf(chord);
-      }
-
-      if (Math.abs(steps) > 11) {
-        return null;
-      } else if (steps < 0) {
-        if (chordIndex + steps < 0) {
-          newChord = chords[chords.length + (chordIndex + steps)];
-        } else {
-          newChord = chords[chordIndex + steps];
-        }
-      } else {
-        if (chordIndex + steps > chords.length - 1) {
-          newChord = chords[chordIndex + steps - 12];
-        } else {
-          newChord = chords[chordIndex + steps];
-        }
-      }
-
-      newChord += additions;
+      const newChord = translator(chord, steps);
       span.textContent = newChord;
     }
   }
 }
 
-chrome.runtime.onInstalled.addListener(() => {
-  console.log("installed");
-});
+// chrome.runtime.onInstalled.addListener(() => {
+//   console.log("installed");
+// });
+
+function translator(chord, steps) {
+  const flat = "b";
+  const sharp = "#";
+
+  let additions;
+  let chordIndex;
+  let newChord;
+
+  if (chord[1] === flat || chord[1] === sharp) {
+    additions = chord.slice(2);
+    chord = chord.slice(0, 2);
+  } else {
+    additions = chord.slice(1);
+    chord = chord.slice(0, 1);
+  }
+
+  if (chords.includes(chord)) {
+    chordIndex = chords.indexOf(chord);
+  } else if (chords2.includes(chord)) {
+    chordIndex = chords2.indexOf(chord);
+  }
+
+  if (Math.abs(steps) > 11) {
+    return null;
+  } else if (steps < 0) {
+    if (chordIndex + steps < 0) {
+      newChord = chords[chords.length + (chordIndex + steps)];
+    } else {
+      newChord = chords[chordIndex + steps];
+    }
+  } else {
+    if (chordIndex + steps > chords.length - 1) {
+      newChord = chords[chordIndex + steps - 12];
+    } else {
+      newChord = chords[chordIndex + steps];
+    }
+  }
+
+  newChord += additions;
+  return newChord;
+}
