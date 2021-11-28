@@ -1,10 +1,3 @@
-let tonesInput = 0;
-
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ tonesInput });
-  console.log("Default tones is 0", `tones: ${tonesInput}`);
-});
-
 const chords = [
   "C",
   "C#",
@@ -36,7 +29,7 @@ const chords2 = [
 
 const chordRegEx = new RegExp("[CDEFGAB][#b]?m?7?");
 
-export function transposer(tones, document) {
+function transposer(tones) {
   console.log("called!");
   const spans = document.querySelectorAll("span");
   const steps = tones + tones;

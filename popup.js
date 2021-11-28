@@ -1,7 +1,4 @@
-import { transposer } from "./chord_transposer";
-
 const tones = document.getElementById("tonesInput");
-console.log("hello");
 const saveButton = document.getElementById("save");
 
 saveButton.addEventListener("click", async () => {
@@ -13,12 +10,6 @@ saveButton.addEventListener("click", async () => {
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    function: transpose,
+    function: () => transposer(Number(tones.textContent)),
   });
 });
-
-function transpose() {
-  chrome.storage.sync.get("tonesInput", ({ tonesInput }) => {
-    transposer(tonesInput, document);
-  });
-}
