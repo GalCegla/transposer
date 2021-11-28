@@ -32,14 +32,17 @@ const spans = document.querySelectorAll("span");
 const chordRegEx = new RegExp("[CDEFGAB][#b]?m?7?");
 
 function transposer(tones) {
+  const steps = tones + tones;
+  const flat = "b";
+  const sharp = "#";
+
   for (const span of spans) {
-    const steps = tones + tones;
     let chord = span.textContent;
     let additions;
     let chordIndex;
     let newChord;
     if (chord.match(chordRegEx)) {
-      if (chord[1] === "b" || chord[1] === "#") {
+      if (chord[1] === flat || chord[1] === sharp) {
         additions = chord.slice(2);
         chord = chord.slice(0, 2);
       } else {
@@ -74,3 +77,7 @@ function transposer(tones) {
     }
   }
 }
+
+chrome.runtime.onInstalled.addListener(() => {
+  console.log("installed");
+});
