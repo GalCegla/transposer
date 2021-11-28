@@ -1,3 +1,10 @@
+let tonesInput = 0;
+
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.sync.set({ tonesInput });
+  console.log("Default tones is 0", `tones: ${tonesInput}`);
+});
+
 const chords = [
   "C",
   "C#",
@@ -27,11 +34,11 @@ const chords2 = [
   "B",
 ];
 
-const spans = document.querySelectorAll("span");
-
 const chordRegEx = new RegExp("[CDEFGAB][#b]?m?7?");
 
-function transposer(tones) {
+export function transposer(tones, document) {
+  console.log("called!");
+  const spans = document.querySelectorAll("span");
   const steps = tones + tones;
 
   for (const span of spans) {
@@ -43,10 +50,6 @@ function transposer(tones) {
     }
   }
 }
-
-// chrome.runtime.onInstalled.addListener(() => {
-//   console.log("installed");
-// });
 
 function translator(chord, steps) {
   const flat = "b";
