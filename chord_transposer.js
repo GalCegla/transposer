@@ -29,7 +29,7 @@ const chords2 = [
 
 const spans = document.querySelectorAll("span");
 
-const chordRegEx = new RegExp("[CDRFGAB][#b]?m?7?");
+const chordRegEx = new RegExp("[CDEFGAB][#b]?m?7?");
 
 function transposer(tones) {
   for (const span of spans) {
@@ -58,10 +58,8 @@ function transposer(tones) {
       } else if (steps < 0) {
         if (chordIndex + steps < 0) {
           newChord = chords[chords.length + (chordIndex + steps)];
-          console.log("hello " + newChord);
         } else {
-          newChord = chords[chords.length - (chordIndex + steps)];
-          console.log("hi " + newChord);
+          newChord = chords[chordIndex + steps];
         }
       } else {
         if (chordIndex + steps > chords.length - 1) {
