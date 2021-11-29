@@ -1,3 +1,16 @@
+const tones = document.getElementById("tonesInput");
+const saveButton = document.getElementById("save");
+
+
+
+
+
+
+
+
+
+
+
 const chords = [
   "C",
   "C#",
@@ -85,3 +98,19 @@ function translator(chord, steps) {
   newChord += additions;
   return newChord;
 }
+
+
+saveButton.addEventListener("click", async () => {
+  saveButton.textContent = "shot";
+  console.log(tones.value);
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  function callback() {
+    transposer(tones.value);
+  }
+
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: callback
+  });
+});

@@ -1,15 +1,15 @@
-const tones = document.getElementById("tonesInput");
-const saveButton = document.getElementById("save");
+// import { transposer } from "./chord_transposer";
 
-saveButton.addEventListener("click", async () => {
-  chrome.storage.sync.set("tonesInput", ({ tonesInput }) => {
-    tones.style.backgroundColor = tonesInput;
-  });
+// const tones = document.getElementById("tonesInput");
+// const saveButton = document.getElementById("save");
 
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+// saveButton.addEventListener("click", async () => {
+//   saveButton.textContent = "shot";
+//   console.log(tones.textContent);
+//   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: () => transposer(Number(tones.textContent)),
-  });
-});
+//   chrome.scripting.executeScript({
+//     target: { tabId: tab.id },
+//     function: () => transposer(Number(tones.textContent)),
+//   });
+// });
