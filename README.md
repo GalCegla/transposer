@@ -29,6 +29,8 @@ Here I'll document the chords that my RegEx is currently looking for. I might ad
 `sus2`
 `sus4`
 
+##
+
 v1.0
 
 ### Enjoy!
