@@ -1,4 +1,4 @@
-### Chord Transposer
+# Chord Transposer
 
 This project is a chrome extension, born of laziness and unwillingness to pay for ridiculous features.
 I was strumming a song I liked on my guitar, when the barred chords were tiring my left hand.
@@ -31,4 +31,4 @@ Here I'll document the chords that my RegEx is currently looking for. I might ad
 
 v1.0
 
-# Enjoy!
+### Enjoy!
