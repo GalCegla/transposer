@@ -1,3 +1,4 @@
+
 const chords = [
   "C",
   "C#",
@@ -30,7 +31,7 @@ const chords2 = [
 const chordRegEx = new RegExp("[CDEFGAB][#b]?m?7?");
 
 function transposer(tones) {
-  console.log("called!");
+  console.log("✨magic!✨");
   const spans = document.querySelectorAll("span");
   const steps = tones + tones;
 
@@ -85,3 +86,9 @@ function translator(chord, steps) {
   newChord += additions;
   return newChord;
 }
+
+
+chrome.runtime.onMessage.addListener(req => {
+  const tones = Number(req);
+  transposer(tones);
+})
