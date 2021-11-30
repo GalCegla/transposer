@@ -1,15 +1,3 @@
-const tones = document.getElementById("tonesInput");
-const saveButton = document.getElementById("save");
-
-
-
-
-
-
-
-
-
-
 
 const chords = [
   "C",
@@ -43,7 +31,7 @@ const chords2 = [
 const chordRegEx = new RegExp("[CDEFGAB][#b]?m?7?");
 
 function transposer(tones) {
-  console.log("called!");
+  console.log("✨magic!✨");
   const spans = document.querySelectorAll("span");
   const steps = tones + tones;
 
@@ -100,17 +88,7 @@ function translator(chord, steps) {
 }
 
 
-saveButton.addEventListener("click", async () => {
-  saveButton.textContent = "shot";
-  console.log(tones.value);
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-  function callback() {
-    transposer(tones.value);
-  }
-
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: callback
-  });
-});
+chrome.runtime.onMessage.addListener(req => {
+  const tones = Number(req);
+  transposer(tones);
+})

@@ -1,15 +1,21 @@
-// import { transposer } from "./chord_transposer";
 
-// const tones = document.getElementById("tonesInput");
-// const saveButton = document.getElementById("save");
+const tones = document.getElementById("tonesInput");
+const saveButton = document.getElementById("save");
 
-// saveButton.addEventListener("click", async () => {
-//   saveButton.textContent = "shot";
-//   console.log(tones.textContent);
-//   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+saveButton.disabled = true;
 
-//   chrome.scripting.executeScript({
-//     target: { tabId: tab.id },
-//     function: () => transposer(Number(tones.textContent)),
-//   });
-// });
+tones.addEventListener("input", () => {
+    const value = tones.value;
+    if(Number(value) > 5.5 || Number(value) < -5.5 || value == "") {
+        saveButton.disabled = true;
+    } else {
+        saveButton.disabled = false;
+    }
+})
+
+saveButton.addEventListener("click", () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, tones.value)
+  });
+
+});
